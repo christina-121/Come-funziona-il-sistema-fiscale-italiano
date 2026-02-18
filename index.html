@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRPEF · come funziona il sistema fiscale italiano</title>
+  <!-- Font & base per UI/UX pulita con animazioni eleganti -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f0f3f7 0%, #e0e7f0 100%);
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      color: #1e2e40;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .article-card {
+      max-width: 1100px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 4rem 4rem 3.2rem 3.2rem;
+      box-shadow: 0 50px 90px -30px #1f3e5c, 0 15px 30px -15px #0e2132;
+      padding: 3rem 3.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.5s;
+      animation: irpefRise 0.9s cubic-bezier(0.12, 0.75, 0.3, 1) forwards;
+    }
+
+    .article-card:hover {
+      box-shadow: 0 70px 110px -30px #1f5882;
+    }
+
+    @keyframes irpefRise {
+      0% { opacity: 0; transform: translateY(45px) scale(0.97); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* animazione lampeggiante per concetti fiscali */
+    @keyframes taxBlink {
+      0% { background: rgba(210, 230, 250, 0.1); border-left-color: #1f6e9c; border-right-color: #1f6e9c; }
+      40% { background: rgba(210, 230, 250, 0.4); border-left-color: #e8aa4d; border-right-color: #e8aa4d; }
+      80% { background: rgba(210, 230, 250, 0.2); border-left-color: #1f6e9c; border-right-color: #1f6e9c; }
+      100% { background: rgba(210, 230, 250, 0.1); border-left-color: #1f6e9c; border-right-color: #1f6e9c; }
+    }
+
+    .blink-tax {
+      animation: taxBlink 3.4s infinite ease-in-out;
+      border-left: 10px solid #1a5f8b;
+      border-right: 10px solid #1a5f8b;
+      border-radius: 4rem;
+      padding: 2rem 2.5rem;
+      background: rgba(225, 240, 255, 0.25);
+      margin: 3rem 0;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(145deg, #1f5882, #12384f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 4px solid #c3daf5;
+      padding-bottom: 1rem;
+    }
+
+    .title-emoji {
+      font-size: 4rem;
+      filter: drop-shadow(2px 8px 16px #5692c2);
+    }
+
+    .subhead {
+      font-size: 1.4rem;
+      font-weight: 340;
+      color: #1f6e9c;
+      margin-bottom: 2.2rem;
+      padding-left: 2.2rem;
+      border-left: 8px solid #e7aa4d;
+      background: #e5f1fd70;
+      border-radius: 0 80px 80px 0;
+      padding: 0.8rem 2.2rem;
+    }
+
+    h2 {
+      font-size: 2.4rem;
+      font-weight: 580;
+      margin: 2.8rem 0 1.4rem 0;
+      color: #1c5985;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 3px dashed #b2d1f0;
+      padding-bottom: 0.6rem;
+    }
+
+    h2 span {
+      font-size: 2.7rem;
+    }
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 500;
+      margin: 2rem 0 1rem;
+      color: #1b6a9e;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    p {
+      margin-bottom: 1.3rem;
+      font-weight: 350;
+      color: #1c425b;
+      font-size: 1.1rem;
+    }
+
+    /* griglia concetti */
+    .concetti-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 2rem;
+      margin: 2.5rem 0 2rem;
+    }
+
+    .concetto-card {
+      background: #ffffffee;
+      border-radius: 3rem;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 20px 35px -20px #1f6e9c;
+      transition: all 0.3s;
+      border: 1px solid white;
+      backdrop-filter: blur(2px);
+      text-align: center;
+    }
+
+    .concetto-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: white;
+      border-color: #dba85a;
+      box-shadow: 0 30px 45px -25px #1a73a8;
+    }
+
+    .concetto-icon {
+      font-size: 3.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .concetto-title {
+      font-weight: 650;
+      font-size: 1.8rem;
+      color: #13669c;
+      margin: 0.5rem 0 0.3rem;
+    }
+
+    .badge-concetto {
+      background: #d68f44;
+      color: #1b3142;
+      border-radius: 40px;
+      padding: 0.2rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-block;
+      margin: 1rem 0 0.2rem;
+    }
+
+    /* tabella aliquote */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffffee;
+      border-radius: 3rem;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -20px #1f6e9c;
+      margin: 2.5rem 0;
+      backdrop-filter: blur(4px);
+    }
+
+    th {
+      background: #1d77aa;
+      color: white;
+      font-weight: 500;
+      padding: 1.2rem 1.5rem;
+      text-align: left;
+      font-size: 1.2rem;
+    }
+
+    td {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #c4e2fc;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* strip grafica */
+    .graphic-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      background: #dbeafb;
+      border-radius: 150px;
+      padding: 2rem 3.5rem;
+      margin: 2.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .graphic-icon {
+      font-size: 4rem;
+      filter: drop-shadow(0 8px 18px #5692c2);
+      transition: transform 0.2s;
+    }
+
+    .graphic-icon:hover {
+      transform: rotate(5deg) scale(1.1);
+    }
+
+    .footer-links {
+      margin-top: 5rem;
+      padding-top: 2.8rem;
+      border-top: 6px solid #c3daf5;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.8rem;
+      justify-content: center;
+      font-size: 1.3rem;
+      background: #eaf3fc;
+      border-radius: 80px 80px 40px 40px;
+      padding: 2rem 3.5rem;
+      backdrop-filter: blur(3px);
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.8rem 2.2rem;
+      border-radius: 70px;
+      background: white;
+      border: 1px solid #b2d3f0;
+      color: #1b6fa7;
+      transition: all 0.25s;
+      box-shadow: 0 6px 18px #9ec0df;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-links a:hover {
+      background: #def0fd;
+      border-color: #c99e4b;
+      transform: scale(1.07);
+      box-shadow: 0 18px 28px #8bb3d2;
+    }
+
+    .blink-dot {
+      width: 16px;
+      height: 16px;
+      background: #ecaa4b;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 12px;
+      animation: dotPulse 1.8s infinite;
+    }
+
+    @keyframes dotPulse {
+      0% { opacity: 0.4; background: #cc8228; }
+      50% { opacity: 1; background: #ffc468; box-shadow: 0 0 22px #f5a93b; }
+      100% { opacity: 0.4; background: #cc8228; }
+    }
+
+    @media (max-width: 750px) {
+      .article-card { padding: 2rem 1.5rem; }
+      h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="article-card">
+  <h1>
+    <span class="title-emoji">📊💰</span> Come funziona l'IRPEF
+  </h1>
+  <div class="subhead">imposta progressiva · scaglioni di reddito · aliquote 2026</div>
+
+  <!-- intro con punto lampeggiante -->
+  <p><span class="blink-dot"></span> <strong>Hai mai letto "IRPEF" in busta paga e ti sei chiesto come viene calcolata?</strong> L'Imposta sul Reddito delle Persone Fisiche è un pilastro del sistema fiscale italiano, ed è <em>progressiva</em>: significa che chi guadagna di più paga una percentuale più alta. Ma attenzione: non si applica l'aliquota massima a tutto il reddito, bensì a scaglioni. Questa guida ti spiega il meccanismo in modo chiaro e con esempi pratici.</p>
+
+  <!-- strip grafica -->
+  <div class="graphic-strip">
+    <span class="graphic-icon">📈📉</span>
+    <span class="graphic-icon">🧾✂️</span>
+    <span class="graphic-icon">💶🔍</span>
+    <span class="graphic-icon">⚖️✅</span>
+  </div>
+
+  <!-- griglia concetti chiave -->
+  <h2><span>🧩</span> concetti fondamentali</h2>
+  <div class="concetti-grid">
+    <div class="concetto-card">
+      <div class="concetto-icon">📊⬆️</div>
+      <div class="concetto-title">progressività</div>
+      <p>L'aliquota aumenta all'aumentare del reddito. Chi guadagna di più contribuisce in percentuale maggiore.</p>
+      <span class="badge-concetto">art. 53 Cost.</span>
+    </div>
+    <div class="concetto-card">
+      <div class="concetto-icon">🧮📦</div>
+      <div class="concetto-title">scaglioni</div>
+      <p>Il reddito è diviso in fasce. Ogni fascia ha la sua aliquota: non si paga l'aliquota più alta su tutto.</p>
+      <span class="badge-concetto">calcolo a strati</span>
+    </div>
+    <div class="concetto-card">
+      <div class="concetto-icon">💶🧴</div>
+      <div class="concetto-title">imponibile</div>
+      <p>È la parte di reddito su cui si applicano le aliquote, al netto dei contributi previdenziali.</p>
+      <span class="badge-concetto">base di calcolo</span>
+    </div>
+  </div>
+
+  <!-- blocco lampeggiante: scaglioni e aliquote 2026 -->
+  <div class="blink-tax">
+    <h3 style="margin-top:0; display:flex; gap:12px;"><span>📅🔔</span> scaglioni e aliquote IRPEF 2026</h3>
+    <p>Dal 1° gennaio 2026, il secondo scaglione scende dal 35% al 33%. Ecco la struttura attuale:</p>
+    <ul style="margin:1rem 0 0 2rem; font-size:1.2rem;">
+      <li><strong>fino a 28.000€</strong> → 23%</li>
+      <li><strong>da 28.001€ a 50.000€</strong> → 33%</li>
+      <li><strong>oltre 50.000€</strong> → 43%</li>
+    </ul>
+    <p style="margin-top:1rem;">Questa modifica porta un aumento netto fino a 440€ annui per i redditi medi. Uno strumento aggiornato come un <strong>calcolatore RAL netto</strong> include automaticamente queste aliquote.</p>
+  </div>
+
+  <!-- tabella esplicativa del calcolo per scaglioni -->
+  <h2><span>🧮</span> come si calcola: non sull'intero importo</h2>
+  <p>L'errore più comune è pensare che con un reddito di 40.000€ si paghi il 33% su tutto. In realtà si applicano le aliquote solo alla parte di reddito che cade in ciascuno scaglione.</p>
+  <table>
+    <thead><tr><th>scaglione</th><th>aliquota</th><th>esempio: reddito 40.000€</th></tr></thead>
+    <tbody>
+      <tr><td>fino a 28.000€</td><td>23%</td><td>28.000 × 23% = 6.440€</td></tr>
+      <tr><td>da 28.001 a 40.000€</td><td>33%</td><td>12.000 × 33% = 3.960€</td></tr>
+      <tr><td><strong>totale IRPEF lorda</strong></td><td></td><td><strong>6.440 + 3.960 = 10.400€</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- esempio grafico a strati -->
+  <div style="background: #e1effa; border-radius: 3rem; padding: 2rem 2.5rem; margin: 2.5rem 0;">
+    <span style="font-size:2.8rem; margin-right: 16px;">🍰🔪</span>
+    <strong style="font-size:1.7rem;">metafora della torta</strong>
+    <p style="margin-top:0.8rem;">Immagina il tuo reddito come una torta a strati:</p>
+    <ul style="margin-top:0.5rem; list-style-type: '🍰 '; padding-left: 2.2rem;">
+      <li>il primo strato (fino a 28.000€) viene tassato al 23%.</li>
+      <li>lo strato successivo (28.001–50.000€) al 33%.</li>
+      <li>la parte oltre 50.000€ al 43%.</li>
+    </ul>
+    <p>Non si taglia tutta la torta con l'aliquota più alta, solo la fetta più in alto.</p>
+  </div>
+
+  <!-- altri esempi con numeri -->
+  <h3><span>📋</span> esempi pratici (2026)</h3>
+  <table>
+    <thead><tr><th>reddito imponibile</th><th>calcolo IRPEF lorda</th><th>aliquota media effettiva</th></tr></thead>
+    <tbody>
+      <tr><td>25.000€</td><td>25.000 × 23% = 5.750€</td><td>23%</td></tr>
+      <tr><td>40.000€</td><td>(28.000×23%) + (12.000×33%) = 6.440 + 3.960 = 10.400€</td><td>26%</td></tr>
+      <tr><td>60.000€</td><td>(28.000×23%) + (22.000×33%) + (10.000×43%) = 6.440 + 7.260 + 4.300 = 18.000€</td><td>30%</td></tr>
+    </tbody>
+  </table>
+
+  <!-- strip grafica 2 -->
+  <div style="display: flex; gap: 24px; justify-content: space-around; font-size: 3.2rem; margin: 2.5rem 0;">
+    <span>📊➡️🔢</span> <span>🧮➡️💶</span> <span>📉➡️⚖️</span> <span>💡✅</span>
+  </div>
+
+  <!-- approfondimento: detrazioni e imposte locali -->
+  <h2><span>🧾</span> oltre l'IRPEF: detrazioni e addizionali</h2>
+  <p>L'IRPEF lorda viene poi ridotta dalle <strong>detrazioni</strong> (per lavoro dipendente, familiari a carico, ecc.) e aumentata dalle <strong>addizionali regionali e comunali</strong>. Ecco perché il calcolo finale in busta paga è più complesso.</p>
+  <ul style="margin:1rem 0 1.5rem 2.5rem; list-style-type: '🔹 '; font-size:1.1rem;">
+    <li><strong>detrazione lavoro dipendente</strong> ≈ 1.880€ per redditi fino a 15.000€, poi decresce.</li>
+    <li><strong>detrazioni per figli</strong> a carico (variabili in base al reddito e numero figli).</li>
+    <li><strong>addizionale regionale</strong> di solito tra 1,2% e 3,3%.</li>
+    <li><strong>addizionale comunale</strong> da 0% a 0,9% (decisa dal comune di residenza).</li>
+  </ul>
+
+  <!-- blocco importanza strumenti aggiornati -->
+  <div style="background: #e1effa; border-radius: 3rem; padding: 2rem 2.5rem; margin: 2.5rem 0;">
+    <span style="font-size:2.8rem; margin-right: 16px;">⚙️🧮</span>
+    <strong style="font-size:1.7rem;">perché usare un calcolatore aggiornato?</strong>
+    <p style="margin-top:0.8rem;">Le aliquote cambiano, le detrazioni si modificano, e le addizionali variano per regione. Un buon strumento online come un <strong>calcolatore RAL netto</strong> tiene conto di tutti questi fattori e ti dà una stima precisa del netto in pochi secondi. Puoi anche approfondire con risorse affidabili come una <strong>Github Repositary</strong> che spiega i concetti base.</p>
+  </div>
+
+  <!-- nota finale educativa -->
+  <p><span class="blink-dot"></span> L'IRPEF è un'imposta progressiva progettata per essere equa: chi ha di più contribuisce di più. Capire come funzionano gli scaglioni ti aiuta a leggere la busta paga, a valutare offerte di lavoro e a pianificare le tue finanze. Con le nuove aliquote 2026, il meccanismo rimane lo stesso: il reddito è diviso in fasce, e ogni fascia paga la sua aliquota. Semplice, no?</p>
+
+  <!-- link esattamente come richiesto: alla fine -->
+  <div class="footer-links">
+    <a href="https://calcolostipendionettoo.it/" target="_blank" rel="noopener">🧮 calcolatore RAL netto</a>
+    <a href="https://christina-121.github.io/Guida-alla-RAL-Cosa-significa-e-perch-il-tuo-stipendio-netto-pi-basso/" target="_blank" rel="noopener">📁 Github Repositary</a>
+  </div>
+
+  <!-- footer -->
+  <div style="text-align: center; margin-top: 2.2rem; font-size: 0.95rem; color: #1f6e9c;">
+    📊 guida IRPEF · 100% educativo, zero promozione.
+  </div>
+</div>
+</body>
+</html>
